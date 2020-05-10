@@ -2,7 +2,7 @@
 
 var React = require("react");
 var ReactDom = require("react-dom");
-var Greeting$ReasonReactExamples = require("./Greeting/Greeting.bs.js");
+var Top$ReasonReactExamples = require("./Top/Top.bs.js");
 var ExampleStyles$ReasonReactExamples = require("./ExampleStyles.bs.js");
 var BlinkingGreeting$ReasonReactExamples = require("./BlinkingGreeting/BlinkingGreeting.bs.js");
 var FetchedDogPictures$ReasonReactExamples = require("./FetchedDogPictures/FetchedDogPictures.bs.js");
@@ -33,9 +33,7 @@ ReactDom.render(React.createElement(BlinkingGreeting$ReasonReactExamples.make, {
           children: "Hello!"
         }), makeContainer("Blinking Greeting"));
 
-ReactDom.render(React.createElement(Greeting$ReasonReactExamples.make, {
-          name: "hello"
-        }), makeContainer("greeting"));
+ReactDom.render(React.createElement(Top$ReasonReactExamples.make, { }), makeContainer("Image Gallery"));
 
 ReactDom.render(React.createElement(ReducerFromReactJSDocs$ReasonReactExamples.make, { }), makeContainer("Reducer From ReactJS Docs"));
 

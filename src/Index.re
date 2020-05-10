@@ -33,7 +33,7 @@ ReactDOMRe.render(
   makeContainer("Blinking Greeting"),
 );
 
-ReactDOMRe.render(<Greeting name="hello" />, makeContainer("greeting"));
+ReactDOMRe.render(<Top />, makeContainer("Image Gallery"));
 
 ReactDOMRe.render(
   <ReducerFromReactJSDocs />,
