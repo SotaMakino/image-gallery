@@ -36,26 +36,13 @@ let headerContainer = () => {
 
 // Render
 
-ReactDOMRe.render(<Header />, headerContainer());
+ReactDOMRe.render(<Header />, headerContainer()) /*   <ReducerFromReactJSDocs />*/;
 
-ReactDOMRe.render(<Top />, makeContainer("Image Gallery"));
+ReactDOMRe.render(<App />, makeContainer("App")) /* ReactDOMRe.render*/;
 
-ReactDOMRe.render(
-  <BlinkingGreeting> {React.string("Hello!")} </BlinkingGreeting>,
-  makeContainer("Blinking Greeting"),
-);
+// ReactDOMRe.render(<Top />, makeContainer("Images"));
 
-ReactDOMRe.render(
-  <ReducerFromReactJSDocs />,
-  makeContainer("Reducer From ReactJS Docs"),
-);
-
-ReactDOMRe.render(
-  <FetchedDogPictures />,
-  makeContainer("Fetched Dog Pictures"),
-);
-
-ReactDOMRe.render(
-  <ReasonUsingJSUsingReason />,
-  makeContainer("Reason Using JS Using Reason"),
-);
+// ReactDOMRe.render(
+//   <BlinkingGreeting> {React.string("Hello!")} </BlinkingGreeting>,
+//   makeContainer("Blinking Greeting"),
+// );

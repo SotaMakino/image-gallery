@@ -4,6 +4,7 @@ var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
+var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 
 function Top(Props) {
   var match = React.useState((function () {
@@ -39,11 +40,16 @@ function Top(Props) {
                         width: "97%",
                         borderRadius: "10px"
                       };
-                      return React.createElement("img", {
-                                  key: image.id.toString(),
-                                  style: imageStyle,
-                                  src: imageUrl
-                                });
+                      var stringId = image.id.toString();
+                      return React.createElement("div", {
+                                  onClick: (function (param) {
+                                      return ReasonReactRouter.push("/image/" + stringId);
+                                    })
+                                }, React.createElement("img", {
+                                      key: stringId,
+                                      style: imageStyle,
+                                      src: imageUrl
+                                    }));
                     })));
 }
 

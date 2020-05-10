@@ -20,6 +20,14 @@ type state =
 [@react.component]
 let make = () => {
   let (state, setState) = React.useState(() => LoadingImages);
+  let goToDetail = id =>
+    ReasonReactRouter.push(
+      "/image"
+      ++ "/"
+      ++ {
+        id;
+      },
+    );
 
   React.useEffect0(() => {
     Js.Promise.(
@@ -61,11 +69,10 @@ let make = () => {
                ~borderRadius="10px",
                (),
              );
-           <img
-             key={Js.Int.toString(image.id)}
-             src=imageUrl
-             style=imageStyle
-           />;
+           let stringId = Js.Int.toString(image.id);
+           <div onClick={_ => goToDetail(stringId)}>
+             <img key=stringId src=imageUrl style=imageStyle />
+           </div>;
          })
        ->React.array
      }}
