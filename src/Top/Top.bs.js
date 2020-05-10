@@ -42,11 +42,11 @@ function Top(Props) {
                       };
                       var stringId = image.id.toString();
                       return React.createElement("div", {
+                                  key: stringId,
                                   onClick: (function (param) {
                                       return ReasonReactRouter.push("/image/" + stringId);
                                     })
                                 }, React.createElement("img", {
-                                      key: stringId,
                                       style: imageStyle,
                                       src: imageUrl
                                     }));

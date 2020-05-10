@@ -34,7 +34,7 @@ function headerContainer(param) {
 
 ReactDom.render(React.createElement(Header$ReasonReactApp.make, { }), headerContainer(undefined));
 
-ReactDom.render(React.createElement(App$ReasonReactApp.make, { }), makeContainer("App"));
+ReactDom.render(React.createElement(App$ReasonReactApp.make, { }), makeContainer(""));
 
 exports.style = style;
 exports.makeContainer = makeContainer;

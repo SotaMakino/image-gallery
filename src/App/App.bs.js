@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require("react");
+var Caml_format = require("bs-platform/lib/js/caml_format.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 var Top$ReasonReactApp = require("../Top/Top.bs.js");
 var Detail$ReasonReactApp = require("../Detail/Detail.bs.js");
@@ -31,7 +32,7 @@ function App(Props) {
           var match$1 = match[1];
           if (match$1 && !match$1[1]) {
             content = React.createElement(Detail$ReasonReactApp.make, {
-                  id: match$1[0]
+                  id: Caml_format.caml_int_of_string(match$1[0])
                 });
           } else {
             exit = 1;

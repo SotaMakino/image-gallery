@@ -36,13 +36,6 @@ let headerContainer = () => {
 
 // Render
 
-ReactDOMRe.render(<Header />, headerContainer()) /*   <ReducerFromReactJSDocs />*/;
+ReactDOMRe.render(<Header />, headerContainer());
 
-ReactDOMRe.render(<App />, makeContainer("App")) /* ReactDOMRe.render*/;
-
-// ReactDOMRe.render(<Top />, makeContainer("Images"));
-
-// ReactDOMRe.render(
-//   <BlinkingGreeting> {React.string("Hello!")} </BlinkingGreeting>,
-//   makeContainer("Blinking Greeting"),
-// );
+ReactDOMRe.render(<App />, makeContainer(""));

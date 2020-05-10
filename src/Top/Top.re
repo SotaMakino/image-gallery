@@ -1,25 +1,8 @@
 [@bs.val] external fetch: string => Js.Promise.t('a) = "fetch";
 
-type image = {
-  id: int,
-  url: string,
-};
-
-type film = {
-  id: int,
-  title: string,
-  descroption: string,
-  film_photos: array(image),
-};
-
-type state =
-  | LoadingImages
-  | ErrorFetchingImages
-  | LoadedImages(array(image));
-
 [@react.component]
 let make = () => {
-  let (state, setState) = React.useState(() => LoadingImages);
+  let (state, setState) = React.useState(() => Types.LoadingImages);
   let goToDetail = id =>
     ReasonReactRouter.push(
       "/image"
@@ -35,7 +18,11 @@ let make = () => {
       |> then_(response => response##json())
       |> then_(jsonResponse => {
            setState(_previousState =>
-             LoadedImages(jsonResponse->Belt.Array.map(i => i.film_photos[0]))
+             LoadedImages(
+               jsonResponse->Belt.Array.map((i: Types.film) =>
+                 i.film_photos[0]
+               ),
+             )
            );
            Js.Promise.resolve();
          })
@@ -70,8 +57,8 @@ let make = () => {
                (),
              );
            let stringId = Js.Int.toString(image.id);
-           <div onClick={_ => goToDetail(stringId)}>
-             <img key=stringId src=imageUrl style=imageStyle />
+           <div key=stringId onClick={_ => goToDetail(stringId)}>
+             <img src=imageUrl style=imageStyle />
            </div>;
          })
        ->React.array

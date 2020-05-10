@@ -11,7 +11,7 @@ let make = () => {
     switch (url.path) {
     | ["blinking-greeting"] =>
       <BlinkingGreeting> {React.string("Hello !")} </BlinkingGreeting>
-    | ["image", id] => <Detail id />
+    | ["image", id] => <Detail id={int_of_string(id)} />
     | [] => <Top />
     | _ => <NotFound />
     };
