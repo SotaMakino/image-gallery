@@ -46,7 +46,7 @@ let make = () => {
      | LoadingImages => React.string("Loading...")
      | LoadedImages(images) =>
        images
-       ->Belt.Array.mapWithIndex((i, image) => {
+       ->Belt.Array.map(image => {
            let imageUrl =
              Js.String.replaceByRe(
                [%re "/\/\/negabook-server.herokuapp.com/g"],
@@ -55,17 +55,17 @@ let make = () => {
              );
            let imageStyle =
              ReactDOMRe.Style.make(
-               ~height="300px",
-               ~width="100%",
-               ~padding="2px",
-               ~borderRadius="8px",
-               ~backgroundImage={j|url($imageUrl)|j},
-               ~backgroundPosition="center",
+               ~height="100%",
+               ~width="97%",
+               ~margin="10px",
+               ~borderRadius="10px",
                (),
              );
-           <div key={Js.Int.toString(image.id)} style=imageStyle>
-             {React.string(Js.Int.toString(image.id))}
-           </div>;
+           <img
+             key={Js.Int.toString(image.id)}
+             src=imageUrl
+             style=imageStyle
+           />;
          })
        ->React.array
      }}

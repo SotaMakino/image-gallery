@@ -31,20 +31,19 @@ function Top(Props) {
         }), ([]));
   return React.createElement("div", undefined, typeof state === "number" ? (
                 state !== 0 ? "An error occurred!" : "Loading..."
-              ) : Belt_Array.mapWithIndex(state[0], (function (i, image) {
+              ) : Belt_Array.map(state[0], (function (image) {
                       var imageUrl = image.url.replace(/\/\/negabook-server.herokuapp.com/g, "");
                       var imageStyle = {
-                        backgroundImage: "url(" + (String(imageUrl) + ")"),
-                        backgroundPosition: "center",
-                        height: "300px",
-                        padding: "2px",
-                        width: "100%",
-                        borderRadius: "8px"
+                        height: "100%",
+                        margin: "10px",
+                        width: "97%",
+                        borderRadius: "10px"
                       };
-                      return React.createElement("div", {
+                      return React.createElement("img", {
                                   key: image.id.toString(),
-                                  style: imageStyle
-                                }, image.id.toString());
+                                  style: imageStyle,
+                                  src: imageUrl
+                                });
                     })));
 }
 

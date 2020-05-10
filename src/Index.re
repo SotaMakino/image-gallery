@@ -27,13 +27,23 @@ let makeContainer = text => {
   content;
 };
 
-// All 4 examples.
+let headerContainer = () => {
+  let container = document##createElement("div");
+  let () = document##body##appendChild(container);
+
+  container;
+};
+
+// Render
+
+ReactDOMRe.render(<Header />, headerContainer());
+
+ReactDOMRe.render(<Top />, makeContainer("Image Gallery"));
+
 ReactDOMRe.render(
   <BlinkingGreeting> {React.string("Hello!")} </BlinkingGreeting>,
   makeContainer("Blinking Greeting"),
 );
-
-ReactDOMRe.render(<Top />, makeContainer("Image Gallery"));
 
 ReactDOMRe.render(
   <ReducerFromReactJSDocs />,
