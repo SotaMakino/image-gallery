@@ -6,16 +6,16 @@ type image = {
 type film = {
   id: int,
   title: string,
-  descroption: string,
+  description: string,
   film_photos: array(image),
 };
 
 type state =
-  | LoadingImages
-  | ErrorFetchingImages
-  | LoadedImages(array(image));
+  | LoadingFilms
+  | ErrorFetchingFilms
+  | LoadedFilms(array(film));
 
 type stateDetail =
-  | LoadingImage
-  | ErrorFetchingImage
-  | LoadedImage(image);
+  | LoadingFilm
+  | ErrorFetchingFilm
+  | LoadedFilm(film);

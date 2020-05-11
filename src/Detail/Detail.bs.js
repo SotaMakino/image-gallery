@@ -1,36 +1,27 @@
 'use strict';
 
-var List = require("bs-platform/lib/js/list.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
-var Belt_List = require("bs-platform/lib/js/belt_List.js");
-var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 var Caml_array = require("bs-platform/lib/js/caml_array.js");
 
 function Detail(Props) {
   var id = Props.id;
   var match = React.useState((function () {
-          return /* LoadingImage */0;
+          return /* LoadingFilm */0;
         }));
   var setState = match[1];
   var state = match[0];
   React.useEffect((function () {
-          fetch("https://negabook-server.herokuapp.com/negas.json").then((function (response) {
+          fetch("https://negabook-server.herokuapp.com/negas/" + id).then((function (response) {
                       return response.json();
                     })).then((function (jsonResponse) {
-                    var images = Belt_Array.map(jsonResponse, (function (i) {
-                            return Caml_array.caml_array_get(i.film_photos, 0);
-                          }));
-                    var image = List.filter((function (item) {
-                              return item.id === id;
-                            }))(Belt_List.fromArray(images));
                     Curry._1(setState, (function (_previousState) {
-                            return /* LoadedImage */[Caml_array.caml_array_get(Belt_List.toArray(image), 0)];
+                            return /* LoadedFilm */[jsonResponse];
                           }));
                     return Promise.resolve(undefined);
                   })).catch((function (_err) {
                   Curry._1(setState, (function (_previousState) {
-                          return /* ErrorFetchingImage */1;
+                          return /* ErrorFetchingFilm */1;
                         }));
                   return Promise.resolve(undefined);
                 }));
@@ -40,7 +31,8 @@ function Detail(Props) {
   if (typeof state === "number") {
     tmp = state !== 0 ? "An error occurred!" : "Loading...";
   } else {
-    var imageUrl = state[0].url.replace(/\/\/negabook-server.herokuapp.com/g, "");
+    var film = state[0];
+    var imageUrl = Caml_array.caml_array_get(film.film_photos, 0).url.replace(/\/\/negabook-server.herokuapp.com/g, "");
     var imageStyle = {
       height: "100%",
       margin: "10px",
@@ -49,9 +41,10 @@ function Detail(Props) {
     };
     tmp = React.createElement("div", undefined, React.createElement("div", {
               style: {
-                fontSize: "15px"
+                fontSize: "14px",
+                padding: "0 18px"
               }
-            }, id.toString()), React.createElement("img", {
+            }, React.createElement("h4", undefined, Caml_array.caml_array_get(film.film_photos, 0).id.toString()), React.createElement("h4", undefined, film.title), React.createElement("h4", undefined, film.description)), React.createElement("img", {
               style: imageStyle,
               src: imageUrl
             }));

@@ -1,16 +1,11 @@
 'use strict';
 
 var React = require("react");
-var Caml_format = require("bs-platform/lib/js/caml_format.js");
 var ReasonReactRouter = require("reason-react/src/ReasonReactRouter.js");
 var Top$ReasonReactApp = require("../Top/Top.bs.js");
 var Detail$ReasonReactApp = require("../Detail/Detail.bs.js");
 var NotFound$ReasonReactApp = require("../NotFound/NotFound.bs.js");
 var BlinkingGreeting$ReasonReactApp = require("../BlinkingGreeting/BlinkingGreeting.bs.js");
-
-function goToBlinkingGreeting(param) {
-  return ReasonReactRouter.push("/blinking-greeting");
-}
 
 function App(Props) {
   var url = ReasonReactRouter.useUrl(undefined, undefined);
@@ -32,7 +27,7 @@ function App(Props) {
           var match$1 = match[1];
           if (match$1 && !match$1[1]) {
             content = React.createElement(Detail$ReasonReactApp.make, {
-                  id: Caml_format.caml_int_of_string(match$1[0])
+                  id: match$1[0]
                 });
           } else {
             exit = 1;
@@ -47,15 +42,10 @@ function App(Props) {
   if (exit === 1) {
     content = React.createElement(NotFound$ReasonReactApp.make, { });
   }
-  return React.createElement(React.Fragment, undefined, React.createElement("div", {
-                  onClick: (function (param) {
-                      return ReasonReactRouter.push("/blinking-greeting");
-                    })
-                }, "Blinking greetings"), React.createElement("br", undefined), content);
+  return React.createElement(React.Fragment, undefined, content);
 }
 
 var make = App;
 
-exports.goToBlinkingGreeting = goToBlinkingGreeting;
 exports.make = make;
 /* react Not a pure module */

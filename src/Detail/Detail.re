@@ -2,29 +2,18 @@
 
 [@react.component]
 let make = (~id) => {
-  let (state, setState) = React.useState(() => Types.LoadingImage);
+  let (state, setState) = React.useState(() => Types.LoadingFilm);
 
   React.useEffect0(() => {
     Js.Promise.(
-      fetch("https://negabook-server.herokuapp.com/negas.json")
+      fetch("https://negabook-server.herokuapp.com/negas/" ++ id)
       |> then_(response => response##json())
       |> then_(jsonResponse => {
-           let images =
-             jsonResponse->Belt.Array.map((i: Types.film) =>
-               i.film_photos[0]
-             );
-           let image =
-             List.filter(
-               (item: Types.image) => item.id == id,
-               Belt.List.fromArray(images),
-             );
-           setState(_previousState =>
-             LoadedImage(Belt.List.toArray(image)[0])
-           );
+           setState(_previousState => LoadedFilm(jsonResponse));
            Js.Promise.resolve();
          })
       |> catch(_err => {
-           setState(_previousState => ErrorFetchingImage);
+           setState(_previousState => ErrorFetchingFilm);
            Js.Promise.resolve();
          })
       |> ignore
@@ -34,14 +23,14 @@ let make = (~id) => {
 
   <div>
     {switch (state) {
-     | ErrorFetchingImage => React.string("An error occurred!")
-     | LoadingImage => React.string("Loading...")
-     | LoadedImage(image) =>
+     | ErrorFetchingFilm => React.string("An error occurred!")
+     | LoadingFilm => React.string("Loading...")
+     | LoadedFilm(film) =>
        let imageUrl =
          Js.String.replaceByRe(
            [%re "/\/\/negabook-server.herokuapp.com/g"],
            "",
-           image.url,
+           film.film_photos[0].url,
          );
        let imageStyle =
          ReactDOMRe.Style.make(
@@ -52,8 +41,15 @@ let make = (~id) => {
            (),
          );
        <div>
-         <div style={ReactDOMRe.Style.make(~fontSize="15px", ())}>
-           {React.string(Js.Int.toString(id))}
+         <div
+           style={ReactDOMRe.Style.make(
+             ~fontSize="14px",
+             ~padding="0 18px",
+             (),
+           )}>
+           <h4> {React.string(Js.Int.toString(film.film_photos[0].id))} </h4>
+           <h4> {React.string(film.title)} </h4>
+           <h4> {React.string(film.description)} </h4>
          </div>
          <img src=imageUrl style=imageStyle />
        </div>;

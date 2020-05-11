@@ -2,7 +2,7 @@
 
 [@react.component]
 let make = () => {
-  let (state, setState) = React.useState(() => Types.LoadingImages);
+  let (state, setState) = React.useState(() => Types.LoadingFilms);
   let goToDetail = id =>
     ReasonReactRouter.push(
       "/image"
@@ -17,17 +17,11 @@ let make = () => {
       fetch("https://negabook-server.herokuapp.com/negas.json")
       |> then_(response => response##json())
       |> then_(jsonResponse => {
-           setState(_previousState =>
-             LoadedImages(
-               jsonResponse->Belt.Array.map((i: Types.film) =>
-                 i.film_photos[0]
-               ),
-             )
-           );
+           setState(_previousState => LoadedFilms(jsonResponse));
            Js.Promise.resolve();
          })
       |> catch(_err => {
-           setState(_previousState => ErrorFetchingImages);
+           setState(_previousState => ErrorFetchingFilms);
            Js.Promise.resolve();
          })
       |> ignore
@@ -37,16 +31,16 @@ let make = () => {
 
   <div>
     {switch (state) {
-     | ErrorFetchingImages => React.string("An error occurred!")
-     | LoadingImages => React.string("Loading...")
-     | LoadedImages(images) =>
-       images
-       ->Belt.Array.map(image => {
+     | ErrorFetchingFilms => React.string("An error occurred!")
+     | LoadingFilms => React.string("Loading...")
+     | LoadedFilms(films) =>
+       films
+       ->Belt.Array.map(film => {
            let imageUrl =
              Js.String.replaceByRe(
                [%re "/\/\/negabook-server.herokuapp.com/g"],
                "",
-               image.url,
+               film.film_photos[0].url,
              );
            let imageStyle =
              ReactDOMRe.Style.make(
@@ -56,7 +50,7 @@ let make = () => {
                ~borderRadius="10px",
                (),
              );
-           let stringId = Js.Int.toString(image.id);
+           let stringId = Js.Int.toString(film.id);
            <div key=stringId onClick={_ => goToDetail(stringId)}>
              <img src=imageUrl style=imageStyle />
            </div>;
