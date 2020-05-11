@@ -34,8 +34,8 @@ let headerContainer = () => {
   container;
 };
 
-// Render
-
 ReactDOMRe.render(<Header />, headerContainer());
+
+ReactDOMRe.render(<NewFilm />, makeContainer("Add New Image"));
 
 ReactDOMRe.render(<App />, makeContainer(""));

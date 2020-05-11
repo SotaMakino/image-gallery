@@ -4,6 +4,7 @@ var React = require("react");
 var ReactDom = require("react-dom");
 var App$ReasonReactApp = require("./App/App.bs.js");
 var Header$ReasonReactApp = require("./Header/Header.bs.js");
+var NewFilm$ReasonReactApp = require("./NewFilm/NewFilm.bs.js");
 var ExampleStyles$ReasonReactApp = require("./ExampleStyles.bs.js");
 
 var style = document.createElement("style");
@@ -33,6 +34,8 @@ function headerContainer(param) {
 }
 
 ReactDom.render(React.createElement(Header$ReasonReactApp.make, { }), headerContainer(undefined));
+
+ReactDom.render(React.createElement(NewFilm$ReasonReactApp.make, { }), makeContainer("Add New Image"));
 
 ReactDom.render(React.createElement(App$ReasonReactApp.make, { }), makeContainer(""));
 
